@@ -1,21 +1,25 @@
+version: '3'
 services:
-  database:
+  postgres:
     restart: always
     image: postgres:latest
+    hostname: db
+    volumes:
+      - /srv/docker/postgresql:/var/lib/postgresql
     ports:
       - "5432:5432"
-    volumes:
-        - pgdata:/var/lib/postgresql/data/
     environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASS: admin
-        POSTGRES_DB: bentel
+      POSTGRES_USER: postgres
+      POSTGRES_PASS: admin
+      POSTGRES_DB: bentel
   web:
-    build: ./
-    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: .:/bentel/bin/boot.sh
     volumes:
-        - ./bentel
+      - .:/bentel
     ports:
-        - "8000:8000"
+      - "8000:8000"
     links:
-        - db
+      - postgres
