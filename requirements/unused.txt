@@ -1,0 +1,4 @@
+django-rest-framework-mongoengine
+mongoengine==0.11.*
+blinker==1.*
+pymongo==3.*
