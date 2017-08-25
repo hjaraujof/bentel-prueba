@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'bentel',
         'USER': 'postgres',
         'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '5432'
     },    
 }

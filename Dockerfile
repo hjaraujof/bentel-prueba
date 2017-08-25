@@ -1,20 +1,24 @@
 FROM python:3.6
 
-ENV PYTHONUNBUFFERED 1
-
 MAINTAINER Harold Araujo "haroldj.araujof@gmail.com"
 
-RUN mkdir /code
+ENV PYTHONUNBUFFERED 1
 
-WORKDIR /code
+RUN git clone https://github.com/hjaraujof/bentel-prueba.git bentel
+RUN pip install -Ur bentel-prueba/requirements/production.txt 
 
-RUN git clone https://github.com/hjaraujof/bentel-prueba.git
+RUN python bentel/manage.py migrate
 
-RUN pip install -Ur requirements/production.txt
+ENV DJANGO_SU_NAME=admin
+ENV DJANGO_SU_EMAIL=admin@prueba.com
+ENV DJANGO_SU_PASSWORD=bentel-prueba
 
-RUN python manage.py migrate
-
-ADD . /code/
+RUN python -c "import django; django.setup(); \
+   from django.contrib.auth.management.commands.createsuperuser import get_user_model; \
+   get_user_model()._default_manager.db_manager('default').create_superuser( \
+   username='$DJANGO_SU_NAME', \
+   email='$DJANGO_SU_EMAIL', \
+   password='$DJANGO_SU_PASSWORD')"
 
 #RUN python manage.py loaddata data/dummped.json
 
