@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: .:/bentel/bin/boot.sh
+    command: ./boot.sh
     volumes:
       - .:/bentel
     ports:
