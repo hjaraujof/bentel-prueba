@@ -1,12 +1,5 @@
 #!/bin/sh
 
-# wait for Postgres to start
-sleep 10
-
-python bentel/manage.py migrate
-
-python bentel/manage.py runserver 0.0.0.0:8000
-
 DJANGO_SU_NAME=admin
 DJANGO_SU_EMAIL=admin@prueba.com
 DJANGO_SU_PASSWORD=bentel-prueba

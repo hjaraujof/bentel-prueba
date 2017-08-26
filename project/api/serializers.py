@@ -18,23 +18,14 @@ class CocineroSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Cocinero
         fields = ('nombre', 'apellido', 'email')
-class AlumnoSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Alumno
-        fields = ('nombre', 'apellido','codigoPostal','codigoPais')
 class CursoSerializer(serializers.HyperlinkedModelSerializer):
     cocinero = PrimaryKeyRelatedField(many=False, queryset=Cocinero.objects.all())
-    '''Aqui es donde tengo el problema'''
-    inscritos = AlumnoSerializer(many=True,allow_null=True)
     class Meta:
         model = Curso
-        fields = ('nombre', 'descripcion','fechaInicio','fechaFin','cocinero','inscritos')
+        fields = ('nombre', 'descripcion','fechaInicio','fechaFin','cocinero')
         depth = 1
-    def create(self, validated_data):
-        inscritos_data = validated_data.pop('inscritos')
-        curso = Curso.objects.create(**validated_data)
-        for inscrito_data in inscritos_data:
-            print(inscrito_data)
-            Alumno.objects.create(cursos=curso, **inscrito_data)        
-        return curso
-    '''fin  problema'''
+class AlumnoSerializer(serializers.HyperlinkedModelSerializer):
+    cursos = CursoSerializer(many=True,read_only=True)
+    class Meta:
+        model = Alumno
+        fields = ('nombre', 'apellido','codigoPostal','codigoPais','cursos')

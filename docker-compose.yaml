@@ -13,13 +13,25 @@ services:
       POSTGRES_PASS: admin
       POSTGRES_DB: bentel
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: ./boot.sh
+    image: bentel
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/bentel
     ports:
       - "8000:8000"
     links:
       - postgres
+    depends_on:
+      - migration
+  migration:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: bentel
+    command: python manage.py migrate
+    volumes:
+      - .:/bentel
+    links:
+      - postgres
+    depends_on:
+      - postgress
