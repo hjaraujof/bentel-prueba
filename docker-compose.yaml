@@ -28,10 +28,10 @@ services:
       context: .
       dockerfile: Dockerfile
     image: bentel
-    command: python manage.py migrate
+    command: ["python", "manage.py", "migrate", "api"] 
     volumes:
       - .:/bentel
     links:
       - postgres
     depends_on:
-      - postgress
+      - postgres

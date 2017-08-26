@@ -5,31 +5,7 @@ from project.api.models import Cocinero, Alumno, Curso
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from project.api.serializers import UserSerializer, GroupSerializer, CocineroSerializer, CursoSerializer, AlumnoSerializer
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = (permissions.IsAdminUser,)
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    permission_classes = (permissions.IsAdminUser,)
-
-class CocineroViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows cocineros to be viewed or edited.
-    """
-    queryset = Cocinero.objects.all()
-    serializer_class = CocineroSerializer
-    permission_classes = (permissions.IsAdminUser,)
+from project.api.serializers import CocineroSerializer, CursoSerializer, AlumnoSerializer
 
 class AlumnoViewSet(viewsets.ModelViewSet):
     """
@@ -37,7 +13,7 @@ class AlumnoViewSet(viewsets.ModelViewSet):
     """
     queryset = Alumno.objects.all()
     serializer_class = AlumnoSerializer
-    permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 class CursoViewSet(viewsets.ModelViewSet):
     """
@@ -45,21 +21,24 @@ class CursoViewSet(viewsets.ModelViewSet):
     """
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
-    permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 @api_view(['GET', 'POST'])
 def curso_alumno_list(request, name,format=None):
+
     alumnos = Alumno.objects.all()
     cursos = Curso.objects.all()
+
     try:
         curso = cursos.filter(nombre=name)[0]
         curso_dict = model_to_dict(curso,fields = ['nombre', 'descripcion','fechaInicio','fechaFin','cocinero'])
         print(curso)
+
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        alumnos = Alumno.objects.filter(cursos=curso)
+        alumnos = Alumnos.objects.filter(cursos=curso)
         serializer = AlumnoSerializer(alumnos, many=True)
         return Response(serializer.data)
 
