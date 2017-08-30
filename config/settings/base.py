@@ -16,7 +16,7 @@ if READ_DOT_ENV_FILE:
     print('The .env file has been loaded. See base.py for more information')
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['34.213.175.231','localhost','127.0.0.1']
 
 DEBUG = env.bool('DJANGO_DEBUG', False)
 
