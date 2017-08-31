@@ -6,13 +6,13 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./config/nginx:/etc/nginx/conf.g
+      - ./config/nginx:/etc/nginx/conf.d
     depends_on:
       - web
   web:
     build: .
     container_name: dg01
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn config.wsgi"
+    command: gunicorn config.wsgi --bind 0.0.0.0:8000
     depends_on:
       - db
     expose:
