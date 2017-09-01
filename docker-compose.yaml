@@ -8,6 +8,7 @@ services:
       - "8000:8000"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
+      - /static:/static
     depends_on:
       - web
   web:
@@ -17,6 +18,8 @@ services:
     command: gunicorn config.wsgi --bind 0.0.0.0:80
     depends_on:
       - db
+    volumes:
+      - /static:/static
     expose:
       - "80"
   db:
