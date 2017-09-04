@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^auth/', include('djoser.urls.authtoken')),
     url(r'^', include('project.api.urls')),
 ]

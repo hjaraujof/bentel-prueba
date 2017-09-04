@@ -4,12 +4,9 @@ from rest_framework import routers
 from project.api import views
 
 router = routers.DefaultRouter()
-#router.register(r'users', views.UserViewSet)
-#router.register(r'groups', views.GroupViewSet)
 router.register(r'alumnos', views.AlumnoViewSet)
 router.register(r'cursos', views.CursoViewSet)
 urlpatterns = [
     url(r'^api/', include(router.urls)),    
     url(r'^api/cursos/(?P<name>[a-zA-Z0-9-]+)/curso_alumno/$', views.curso_alumno_list, name='alumnos_list'),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
