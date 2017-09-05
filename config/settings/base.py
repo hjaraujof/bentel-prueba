@@ -89,6 +89,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = str(ROOT_DIR('static'))
 STATICFILES_DIRS = (
     str(APPS_DIR.path('static')),
+    '/static'
 )
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

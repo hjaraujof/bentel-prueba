@@ -45,7 +45,11 @@ class CursoViewSet(viewsets.ModelViewSet):
 
 @api_view(['GET', 'POST'])
 def curso_alumno_list(request, name,format=None):
-
+    """
+    API endpoint that allows the following:
+        -GET Method: Listing Cursos for a logged in Cocinero.
+        -POST Method: Adding(and creating if needed) Alumnos to a Curso
+    """
     alumnos = Alumno.objects.all()
     cursos = Curso.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
