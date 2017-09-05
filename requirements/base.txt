@@ -4,3 +4,4 @@ djangorestframework==3.6.4
 psycopg2==2.7.1
 django-countries
 djoser
+drfdocs
