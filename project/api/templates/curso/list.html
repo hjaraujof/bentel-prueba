@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %} {% block content %}
+<h1>Cursos Disponibles</h1>
+
+{% if lista_curso %}
+<ul>
+
+    {% for curso in lista_curso %}
+    <li>
+        <a href="{{ curso.get_absolute_url }}">{{ curso.title }}</a> ({{curso.author}})
+    </li>
+    {% endfor %}
+
+</ul>
+{% else %}
+<p>No tenemos cursos disponibles en este momento.</p>
+{% endif %} {% endblock %}

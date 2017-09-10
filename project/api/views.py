@@ -1,3 +1,4 @@
+from django.views import generic
 from django.shortcuts import render
 from django.forms import model_to_dict
 from project.api.models import Cocinero, Alumno, Curso
@@ -5,6 +6,12 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from project.api.serializers import CocineroSerializer, CursoSerializer, AlumnoSerializer
+
+class CursoListView(generic.ListView):
+    model = Curso
+    context_object_name = "lista_curso"
+    query_set = Curso.objects.all()
+    template_name = 'templates/curso/list.html'
 
 class AlumnoViewSet(viewsets.ModelViewSet):
     """
