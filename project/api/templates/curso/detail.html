@@ -1,0 +1,13 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+  <h1>{{ curso.name }}</h1>
+
+  <p><strong>Descripcion:</strong> {{ curso.descripcion }}</p>
+  <p><strong>Inicio:</strong> {{ curso.fechaInicio }}</p>
+  <p><strong>Fin:</strong> {{ curso.fechaFin }}</p> 
+  <p><strong>Cocinero Guia:</strong> {{ curso.cocinero.first_name }} {{ curso.cocinero.last_name }}</p> 
+  
+  <a href="{% url 'cursos' %}"> Regresar a listado</a>
+  
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends "admin/base.html" %} {% block content %}
 <h1>Cursos Disponibles</h1>
 
 {% if lista_curso %}
@@ -6,7 +6,7 @@
 
     {% for curso in lista_curso %}
     <li>
-        <a href="{{ curso.get_absolute_url }}">{{ curso.title }}</a> ({{curso.author}})
+        <a href="{% url 'cursodetail' curso.pk %}">{{ curso.nombre }}</a> ({{curso.cocinero.first_name}} {{curso.cocinero.last_name}})
     </li>
     {% endfor %}
 

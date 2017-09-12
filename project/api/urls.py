@@ -8,5 +8,7 @@ router.register(r'alumnos', views.AlumnoViewSet)
 router.register(r'cursos', views.CursoViewSet)
 urlpatterns = [
     url(r'^api/', include(router.urls)),    
-    url(r'^api/cursos/(?P<name>[a-zA-Z0-9-]+)/curso_alumno/$', views.curso_alumno_list, name='alumnos_list'),
+    url(r'^api/cursos/(?P<nombre>[a-zA-Z0-9-]+)/curso_alumno/$', views.curso_alumno_list, name='alumnos_list'),
+    url(r'^cursos/$', views.CursoListView.as_view(), name='cursos'),
+    url(r'^curso/(?P<pk>[a-zA-Z0-9-]+)/$', views.CursoDetailView.as_view(), name='cursodetail'),
 ]

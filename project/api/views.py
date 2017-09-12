@@ -11,7 +11,11 @@ class CursoListView(generic.ListView):
     model = Curso
     context_object_name = "lista_curso"
     query_set = Curso.objects.all()
-    template_name = 'templates/curso/list.html'
+    template_name = 'curso/list.html'
+    
+class CursoDetailView(generic.DetailView):
+    model = Curso
+    template_name = 'curso/detail.html'
 
 class AlumnoViewSet(viewsets.ModelViewSet):
     """
